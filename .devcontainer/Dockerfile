@@ -12,7 +12,7 @@ RUN apt-get -y install --no-install-recommends ca-certificates gnupg2 tar gcc ma
 RUN LINK=$(curl -s https://api.github.com/repos/bufbuild/buf/releases/latest | awk "/download.url.*buf-Linux-$(uname -m)\"/ {print \$2}" | sed 's/"//g') && curl -L $LINK -o /usr/bin/buf && chmod +x /usr/bin/buf
 RUN ARCH=$(dpkg --print-architecture); curl -LO https://go.dev/dl/go1.22.5.linux-$ARCH.tar.gz && tar -C /usr/local -xzf go1.22.5.linux-$ARCH.tar.gz && rm go1.22.5.linux-$ARCH.tar.gz
 RUN ARCH=$(dpkg --print-architecture); curl -LO https://github.com/tinygo-org/tinygo/releases/download/v0.32.0/tinygo_0.32.0_$ARCH.deb && dpkg -i tinygo_0.32.0_$ARCH.deb && rm tinygo_0.32.0_$ARCH.deb
-RUN curl -LO https://github.com/streamingfast/substreams-sink-sql/releases/download/v4.5.0/substreams-sink-sql_linux_x86_64.tar.gz && tar -C /usr/local/bin -xzf substreams-sink-sql_linux_x86_64.tar.gz && rm substreams-sink-sql_linux_x86_64.tar.gz
+RUN curl -LO https://github.com/streamingfast/substreams-sink-sql/releases/download/v4.5.0/substreams-sink-sql_linux_x86_64.tar.gz && sudo tar -C /usr/local/bin -xzf substreams-sink-sql_linux_x86_64.tar.gz && rm substreams-sink-sql_linux_x86_64.tar.gz
 
 RUN curl -LO https://raw.githubusercontent.com/devcontainers/features/main/src/docker-outside-of-docker/install.sh && chmod +x /install.sh && ./install.sh && rm install.sh # this is done again in the 'devcontainer feature' but precached all pkgs
 
